@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-#--------------------------------------------------------Load Dataset----------------------------------------------------------------#
+#--------------------------------------------------------Load Sorted Dataset----------------------------------------------------------------#
 os.chdir(r"C:/Users/charlesrowe/Downloads/GitHub/powerball_project/dataset")
 df = pd.read_csv("powerball.csv")
 os.chdir(r"C:\Users\charlesrowe\Downloads\GitHub\powerball_project")
@@ -75,7 +75,9 @@ unique_counter('PP')
 
 #----------------------------------------------Probability------------------------------------------#
 
-def probability(col1,col2):
+import itertools as it
+
+def probability_2col(col1,col2):
     st_dev_dic = {'S1_-1_stdev':1,'S1_med':9,'S1_+1_stdev':18,
                      'S2_-1_stdev':10,'S2_med':21,'S2_+1_stdev':32}
     
@@ -83,9 +85,13 @@ def probability(col1,col2):
         if col2 == 'S2':
             col1vals = np.arange(st_dev_dic['S1_-1_stdev'],st_dev_dic['S1_+1_stdev']+1)
             col2vals = np.arange(st_dev_dic['S2_-1_stdev'],st_dev_dic['S2_+1_stdev']+1)
-
-            
+            cols = df[[col1,col2]]
+            cols_list = cols.columns.to_list()
+            for combo in it.combinations(cols_list,2):
+                print(df[list(combo)].value_counts())
+                new_csv = pd.DataFrame(df[list(combo)].value_counts())
+                new_csv.to_csv(f'{col1}_{col2}_combos.csv')
             print(col1vals)
             print(col2vals)
         
-probability('S1','S2')
+probability_2col('S1','S2')
