@@ -93,26 +93,3 @@ def probability_2col(col1,col2):
             print(col2vals)
         
 probability_2col('S1','S2')
-
-#----------------------------------------------New Dataset--------------------------------------------------#
-
-import random
-
-random.seed(1111)
-
-def dataset_creation(points):
-    list1 = []
-    list2 = []
-    pop1 = np.arange(1,70)
-    pop2 = np.arange(1,27)
-    for i in range(points):
-        while i <= points:
-            select1 = np.random.choice(pop1,size=5,replace=False)
-            select2 = np.random.choice(pop2,size=1,replace=False)
-            list1.append(select1)
-            list2.append(select2)
-            i += 1
-    df2 = pd.DataFrame([list1,list2])
-    df2.to_csv('new_data.csv')
-
-dataset_creation(2000)
