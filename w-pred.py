@@ -347,3 +347,4 @@ def probability_2col2(col1,col2):
             print(col2vals)
         
 probability_2col2('choice2','choice4')
+
